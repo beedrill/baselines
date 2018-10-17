@@ -209,7 +209,8 @@ def main():
     else:
         logger.configure(format_strs=[])
         rank = MPI.COMM_WORLD.Get_rank()
-
+    #env_type: cmu_ece
+    #env_id: TrafficLight-v0
     model, env = train(args, extra_args)
     env.close()
 
