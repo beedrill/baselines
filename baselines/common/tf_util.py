@@ -345,6 +345,7 @@ def save_variables(save_path, variables=None, sess=None):
     if any(dirname):
         os.makedirs(dirname, exist_ok=True)
     joblib.dump(save_dict, save_path)
+    print('model saved to {}'.format(dirname))
 
 def load_variables(load_path, variables=None, sess=None):
     sess = sess or get_session()

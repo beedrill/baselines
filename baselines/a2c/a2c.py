@@ -194,6 +194,8 @@ def learn(
         model.load(load_path)
 
     # Instantiate the runner object
+    if total_timesteps == 0:
+        return model
     runner = Runner(env, model, nsteps=nsteps, gamma=gamma)
 
     # Calculate the batch_size
@@ -223,4 +225,3 @@ def learn(
             logger.record_tabular("explained_variance", float(ev))
             logger.dump_tabular()
     return model
-
