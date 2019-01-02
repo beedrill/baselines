@@ -10,6 +10,7 @@ except ImportError:
 
 import gym
 from gym.wrappers import FlattenDictWrapper
+from gym_trafficlight.wrappers import TrafficParameterSetWrapper
 from baselines import logger
 from baselines.bench import Monitor
 from baselines.common import set_global_seeds
@@ -58,6 +59,12 @@ def make_env(env_id, env_type, subrank=0, seed=None, reward_scale=1.0, gamestate
         import retro
         gamestate = gamestate or retro.State.DEFAULT
         env = retro_wrappers.make_retro(game=env_id, max_episode_steps=10000, use_restricted_actions=retro.Actions.DISCRETE, state=gamestate)
+    elif env_type == 'trafficenvs':
+        ##when it's a traffic environment, add a wrapper to set environment default
+        print('making traffic envs')
+        env = gym.make(env_id)
+        if wrapper_kwargs is not None:
+            env = TrafficParameterSetWrapper(env, wrapper_kwargs)
     else:
         env = gym.make(env_id)
 

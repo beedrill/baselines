@@ -185,6 +185,7 @@ def learn(
 
     # Get the nb of env
     nenvs = env.num_envs
+
     policy = build_policy(env, network, **network_kwargs)
 
     # Instantiate the model object (that creates step_model and train_model)
@@ -200,6 +201,7 @@ def learn(
 
     # Calculate the batch_size
     nbatch = nenvs*nsteps
+    print('nbatch: {}'.format(nbatch))
 
     # Start total timer
     tstart = time.time()
@@ -213,10 +215,13 @@ def learn(
 
         # Calculate the fps (frame per second)
         fps = int((update*nbatch)/nseconds)
+
+        av_rewards = sum(rewards)/len(rewards)
         if update % log_interval == 0 or update == 1:
             # Calculates if value function is a good predicator of the returns (ev > 1)
             # or if it's just worse than predicting nothing (ev =< 0)
             ev = explained_variance(values, rewards)
+            logger.record_tabular("average rewards", av_rewards)
             logger.record_tabular("nupdates", update)
             logger.record_tabular("total_timesteps", update*nbatch)
             logger.record_tabular("fps", fps)
