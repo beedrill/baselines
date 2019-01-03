@@ -19,7 +19,7 @@ class Runner(AbstractEnvRunner):
         self.ob_dtype = model.train_model.X.dtype.as_numpy_dtype
 
     def run(self):
-        # We initialize the lists that will contain the mb of experiences
+        # We initialize the lists that will contain the mb (mini batch) of experiences
         mb_obs, mb_rewards, mb_actions, mb_values, mb_dones = [],[],[],[],[]
         mb_states = self.states
         for n in range(self.nsteps):
