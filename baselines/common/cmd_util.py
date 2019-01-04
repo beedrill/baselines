@@ -10,7 +10,7 @@ except ImportError:
 
 import gym
 from gym.wrappers import FlattenDictWrapper
-from gym_trafficlight.wrappers import TrafficParameterSetWrapper
+from gym_trafficlight.wrappers import TrafficParameterSetWrapper, SingleAgentWrapper
 from baselines import logger
 from baselines.bench import Monitor
 from baselines.common import set_global_seeds
@@ -65,6 +65,8 @@ def make_env(env_id, env_type, subrank=0, seed=None, reward_scale=1.0, gamestate
         env = gym.make(env_id)
         if wrapper_kwargs is not None:
             env = TrafficParameterSetWrapper(env, wrapper_kwargs)
+        
+        env = SingleAgentWrapper(env)
     else:
         env = gym.make(env_id)
 
