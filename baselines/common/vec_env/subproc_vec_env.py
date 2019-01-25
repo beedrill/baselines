@@ -111,4 +111,3 @@ def _flatten_obs(obs):
         return {k: np.stack([o[k] for o in obs]) for k in keys}
     else:
         return np.stack(obs)
-
